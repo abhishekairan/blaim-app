@@ -54,6 +54,7 @@ export function readForm(body: Record<string, unknown>): AbstractForm {
 }
 
 export const countWords = (text: string) => (text.match(/\S+/g) ?? []).length;
+const countLines = (text: string) => text.split("\n").filter((l) => l.trim()).length;
 
 const splitKeywords = (value: string) =>
   value
@@ -78,6 +79,9 @@ export function validate(form: AbstractForm): FieldErrors {
   required("affiliation", "Affiliation", 200);
   required("country", "Country", 80);
   if (form.coAuthors.length > 2000) e.coAuthors = "Co-authors must be 2,000 characters or fewer.";
+  else if (countLines(form.coAuthors) > abstractLimits.maxAuthors - 1) {
+    e.coAuthors = `An abstract can have at most ${abstractLimits.maxAuthors} authors: you and up to ${abstractLimits.maxAuthors - 1} co-authors, one per line.`;
+  }
 
   if (!contributionTypes.includes(form.contributionType)) e.contributionType = "Choose a contribution type.";
   if (!themes.includes(form.theme)) e.theme = "Choose a conference theme.";
@@ -165,8 +169,8 @@ export async function notifySubmission(s: Submission) {
       subject: `BLAIM 2027 abstract received (${s.id})`,
       text:
         `Dear ${s.name},\n\n` +
-        `Thank you for submitting an abstract to BLAIM 2027, the 2nd International Conference on ` +
-        `Mindfulness, Behavioural Science & Legal Innovation (Parul University, Vadodara, 27-29 January 2027).\n\n` +
+        `Thank you for submitting an abstract to BLAIM 2.0, the 2nd International Multi-Disciplinary Conference on ` +
+        `Mindfulness, Behavioural Science & Legal Innovation (Parul University, Vadodara, 28-30 January 2027, hybrid mode).\n\n` +
         `Please quote your reference ${s.id} in any correspondence about this submission. ` +
         `The conference committee will contact you about the review outcome.\n\n` +
         `A copy of your submission follows.\n\n` +

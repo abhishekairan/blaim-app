@@ -2,30 +2,29 @@
 // src/client/abstract-form.ts only adds a live word count.
 import type { Child } from "hono/jsx";
 import { abstractLimits, contributionTypes, participationModes, themes } from "../data/abstracts";
+import { abstractGuidelines, conference } from "../data/conference";
+import { Backdrop, Eyebrow } from "../components/ui";
 import type { AbstractForm, FieldErrors } from "../lib/abstracts";
 
 export const ABSTRACT_PATH = "/abstract-submission/";
 
-const section =
-  "w-screen max-w-screen mx-[calc(50%-50vw)] overflow-hidden py-[clamp(56px,8vw,100px)] px-6 font-montserrat [background:radial-gradient(circle_at_20%_10%,rgb(var(--rgb-gold)/0.12),transparent_34%),radial-gradient(circle_at_90%_20%,rgb(var(--rgb-jade)/0.35),transparent_34%),linear-gradient(180deg,var(--color-ink)_0%,var(--color-pine)_100%)] lte-640:px-4";
-const kicker = "mb-[14px] text-gold text-[13px] font-bold tracking-[0.16em] uppercase";
-const pageTitle = "m-0 mb-4 text-white text-[clamp(32px,5vw,56px)] leading-[1.05] tracking-[-0.04em] font-extrabold";
-const lead = "max-w-[760px] m-0 text-stone text-[17px] leading-[1.65]";
-const card = "mt-10 p-[clamp(20px,4vw,44px)] bg-white text-ink rounded-3xl shadow-[0_24px_70px_rgba(0,0,0,0.32)] neural:border neural:border-line/30";
-const fieldset = "m-0 mb-8 p-0 min-w-0";
-const legend = "p-0 mb-5 text-pine text-[20px] font-extrabold tracking-[-0.01em]";
-const grid = "grid grid-cols-2 gap-x-6 gap-y-5 lte-767:grid-cols-1";
-const label = "block mb-[6px] text-ink text-[15px] font-bold leading-[1.4]";
-const hint = "block mt-[6px] text-muted text-[13.5px] leading-[1.5]";
-const errorText = "block mt-[6px] text-danger text-[13.5px] font-semibold leading-[1.5]";
+const pageTitle = "font-display text-[clamp(1.9rem,4vw,3rem)] font-extrabold leading-[1.05] tracking-[-0.03em] text-sand";
+const lead = "mt-5 max-w-[42rem] text-[16px] leading-[1.75] text-sand/80";
+const card = "mt-12 bg-linen p-6 text-ink shadow-[0_50px_100px_-40px_rgba(0,0,0,0.8)] md:p-12";
+const fieldset = "m-0 mb-10 min-w-0 p-0";
+const legend = "mb-6 font-display text-[1.25rem] font-extrabold tracking-[-0.02em] text-ink";
+const grid = "grid gap-x-6 gap-y-5 md:grid-cols-2";
+const label = "mb-1.5 block font-sans text-[13px] font-bold text-ink";
+const hint = "mt-1.5 block text-[12.5px] leading-relaxed text-ash";
+const errorText = "mt-1.5 block text-[12.5px] font-semibold leading-relaxed text-danger";
 const control =
-  "block w-full py-3 px-[14px] text-ink text-[16px] leading-[1.4] font-montserrat bg-white border border-field rounded-xl " +
-  "transition-[border-color,box-shadow] duration-150 focus:outline-none focus:border-jade focus:shadow-[0_0_0_3px_rgb(var(--rgb-jade)/0.22)] " +
+  "block w-full border border-ink/25 bg-white px-3.5 py-3 font-sans text-[15px] leading-normal text-ink " +
+  "transition-[border-color,box-shadow] duration-150 focus:border-ember focus:shadow-[0_0_0_3px_rgba(184,120,58,0.25)] focus:outline-none " +
   "aria-invalid:border-danger";
 const btn =
-  "inline-flex items-center justify-center min-h-[52px] py-[15px] px-7 rounded-full text-[13px] font-black tracking-[0.07em] uppercase " +
-  "transition-[transform,box-shadow] duration-220 ease-[ease] hover:-translate-y-0.5 lte-640:w-full";
-const btnPrimary = `${btn} bg-pine text-white shadow-[0_12px_28px_rgb(var(--rgb-pine)/0.28)] hover:text-white hover:shadow-[0_16px_34px_rgb(var(--rgb-pine)/0.36)]`;
+  "inline-flex min-h-12 items-center justify-center gap-3 px-7 py-3 font-sans text-[12.5px] font-bold uppercase tracking-[0.16em] transition-[transform,background-color] duration-300 hover:-translate-y-0.5";
+const btnPrimary = `${btn} bg-ink text-parchment hover:bg-bark`;
+const btnGhost = `${btn} border border-ink/30 text-ink hover:bg-ink hover:text-parchment`;
 
 type FieldProps = {
   name: keyof AbstractForm;
@@ -43,34 +42,43 @@ function Field({ name, label: text, errors, hint: hintText, required, wide, chil
   const err = errors[name];
   const describedBy = [hintText && `${id}-hint`, err && `${id}-error`].filter(Boolean).join(" ") || undefined;
   return (
-    <div class={wide ? "col-span-full" : ""}>
+    <div class={wide ? "md:col-span-full" : ""}>
       <label class={label} for={id}>
         {text}
-        {required ? <span class="text-danger" aria-hidden="true"> *</span> : <span class="font-normal text-muted"> (optional)</span>}
+        {required ? (
+          <span class="text-signal" aria-hidden="true">
+            {" "}
+            *
+          </span>
+        ) : (
+          <span class="font-normal text-ash"> (optional)</span>
+        )}
       </label>
       {children({ id, name, required, "aria-invalid": err ? "true" : undefined, "aria-describedby": describedBy })}
-      {hintText && <span class={hint} id={`${id}-hint`}>{hintText}</span>}
-      {err && <span class={errorText} id={`${id}-error`}>{err}</span>}
+      {hintText && (
+        <span class={hint} id={`${id}-hint`}>
+          {hintText}
+        </span>
+      )}
+      {err && (
+        <span class={errorText} id={`${id}-error`}>
+          {err}
+        </span>
+      )}
     </div>
   );
 }
 
-function Select({
-  options,
-  value,
-  attrs,
-  numbered,
-}: {
-  options: string[];
-  value: string;
-  attrs: Record<string, unknown>;
-  numbered?: boolean;
-}) {
+function Select({ options, value, attrs, numbered }: { options: string[]; value: string; attrs: Record<string, unknown>; numbered?: boolean }) {
   return (
     <select class={`${control} appearance-auto`} {...attrs}>
-      <option value="" selected={!value}>Select…</option>
+      <option value="" selected={!value}>
+        Select…
+      </option>
       {options.map((o, i) => (
-        <option value={o} selected={o === value}>{numbered ? `${i + 1}. ${o}` : o}</option>
+        <option value={o} selected={o === value}>
+          {numbered ? `${i + 1}. ${o}` : o}
+        </option>
       ))}
     </select>
   );
@@ -81,9 +89,9 @@ function Check({ name, value, errors, children }: { name: "originality" | "conse
   const err = errors[name];
   return (
     <div>
-      <label class="flex items-start gap-3 text-ink text-[15px] leading-[1.55] cursor-pointer" for={id}>
+      <label class="flex cursor-pointer items-start gap-3 text-[14.5px] leading-relaxed text-ink" for={id}>
         <input
-          class="flex-none w-5 h-5 mt-[3px] accent-pine"
+          class="mt-[3px] h-5 w-5 flex-none accent-ember"
           type="checkbox"
           id={id}
           name={name}
@@ -95,53 +103,52 @@ function Check({ name, value, errors, children }: { name: "originality" | "conse
         />
         <span>{children}</span>
       </label>
-      {err && <span class={`${errorText} ml-8`} id={`${id}-error`}>{err}</span>}
+      {err && (
+        <span class={`${errorText} ml-8`} id={`${id}-error`}>
+          {err}
+        </span>
+      )}
     </div>
   );
 }
 
 function PageShell({ children }: { children: Child }) {
   return (
-    <main id="content" class="bg-ink">
-      <section class={section} aria-labelledby="abs-title">
-        <div class="max-w-[980px] mx-auto">{children}</div>
+    <main id="content" class="relative isolate overflow-hidden bg-night">
+      <Backdrop slug="narrow-corridor-beam" opacity="opacity-35" position="object-[center_25%]" />
+      <section class="mx-auto w-[min(960px,calc(100%-2.5rem))] pt-36 pb-24 md:pb-32" aria-labelledby="abs-title">
+        {children}
       </section>
     </main>
   );
 }
 
-export function AbstractSubmissionPage({
-  values,
-  errors = {},
-  formError,
-}: {
-  values: AbstractForm;
-  errors?: FieldErrors;
-  formError?: string;
-}) {
+export function AbstractSubmissionPage({ values, errors = {}, formError }: { values: AbstractForm; errors?: FieldErrors; formError?: string }) {
   const errorCount = Object.keys(errors).length;
-  const { minWords, maxWords, titleMaxChars, minKeywords, maxKeywords } = abstractLimits;
+  const { minWords, maxWords, maxAuthors, titleMaxChars, minKeywords, maxKeywords } = abstractLimits;
   return (
     <PageShell>
-      <div class={kicker}>Call for Contributions</div>
-      <h1 id="abs-title" class={pageTitle}>Submit your abstract</h1>
+      <Eyebrow>Call for abstracts</Eyebrow>
+      <h1 id="abs-title" class={pageTitle}>
+        Submit your abstract
+      </h1>
       <p class={lead}>
-        BLAIM 2027 welcomes original research, practice and policy work across the nine conference
-        themes. Hybrid conference, Parul University, Vadodara, 27-29 January 2027. You will receive a
-        confirmation email with a reference number.
+        {conference.shortName}, {conference.dates.label}, {conference.venue.name}, Vadodara, hybrid mode. Abstracts
+        are due on or before {abstractGuidelines.deadline}; you will receive a confirmation email with a reference
+        number.
       </p>
 
       <div class={card}>
         {(errorCount > 0 || formError) && (
-          <div class="mb-8 p-4 border border-danger-line bg-danger-soft rounded-xl text-danger-strong text-[15px] leading-[1.55]" role="alert" tabindex={-1} id="abs-errors">
-            <strong class="block mb-1">{formError ?? "Your abstract was not submitted."}</strong>
+          <div class="mb-8 border border-danger-line bg-danger-soft p-4 text-[14.5px] leading-relaxed text-danger-strong" role="alert" tabindex={-1} id="abs-errors">
+            <strong class="mb-1 block">{formError ?? "Your abstract was not submitted."}</strong>
             {errorCount > 0 && <span>Please correct the {errorCount === 1 ? "field" : `${errorCount} fields`} marked below.</span>}
           </div>
         )}
 
         <form method="post" action={ABSTRACT_PATH} data-abstract-form>
           {/* Honeypot: hidden from people, filled in by naive bots. */}
-          <div class="absolute -left-[10000px] w-px h-px overflow-hidden" aria-hidden="true">
+          <div class="absolute -left-[10000px] h-px w-px overflow-hidden" aria-hidden="true">
             <label>
               Leave this field empty <input type="text" name="website" tabindex={-1} autocomplete="off" />
             </label>
@@ -165,8 +172,18 @@ export function AbstractSubmissionPage({
               <Field name="phone" label="Phone" errors={errors}>
                 {(a) => <input class={control} type="tel" autocomplete="tel" maxlength={40} value={values.phone} {...a} />}
               </Field>
-              <Field name="coAuthors" label="Co-authors" errors={errors} wide hint="One per line: name, institution, country.">
-                {(a) => <textarea class={`${control} min-h-[96px] resize-y`} rows={3} maxlength={2000} {...a}>{values.coAuthors}</textarea>}
+              <Field
+                name="coAuthors"
+                label="Co-authors"
+                errors={errors}
+                wide
+                hint={`One per line: name, institution, country. An abstract can have a maximum of ${maxAuthors} authors, so list up to ${maxAuthors - 1} co-authors.`}
+              >
+                {(a) => (
+                  <textarea class={`${control} min-h-[96px] resize-y`} rows={3} maxlength={2000} {...a}>
+                    {values.coAuthors}
+                  </textarea>
+                )}
               </Field>
             </div>
           </fieldset>
@@ -198,11 +215,17 @@ export function AbstractSubmissionPage({
                 errors={errors}
                 required
                 wide
-                hint={`${minWords}-${maxWords} words. Plain text: state the problem, method or approach, findings and implications.`}
+                hint={`${minWords}-${maxWords} words. Structured and concise: objectives, methods, results and conclusions.`}
               >
                 {(a) => (
                   <>
-                    <textarea class={`${control} min-h-[260px] resize-y`} rows={12} data-min-words={String(minWords)} data-max-words={String(maxWords)} {...a}>
+                    <textarea
+                      class={`${control} min-h-[260px] resize-y`}
+                      rows={12}
+                      data-min-words={String(minWords)}
+                      data-max-words={String(maxWords)}
+                      {...a}
+                    >
                       {values.abstract}
                     </textarea>
                     <span class={`${hint} hidden font-semibold data-over:text-danger`} data-word-count aria-live="polite"></span>
@@ -218,18 +241,20 @@ export function AbstractSubmissionPage({
           <fieldset class={`${fieldset} grid gap-4`}>
             <legend class={legend}>Declarations</legend>
             <Check name="originality" value={values.originality} errors={errors}>
-              This abstract is the original work of the listed authors and has not been published elsewhere,
-              and all co-authors have agreed to its submission.
+              This abstract is the original work of the listed authors and has not been previously published or
+              presented elsewhere, and all co-authors have agreed to its submission.
             </Check>
             <Check name="consent" value={values.consent} errors={errors}>
-              I agree that BLAIM 2027 may store these details and contact me about this submission, the review
-              and the conference.
+              I agree that {conference.shortName} may store these details and contact me about this submission,
+              the review and the conference.
             </Check>
           </fieldset>
 
-          <div class="flex flex-wrap items-center gap-4">
-            <button type="submit" class={btnPrimary}>Submit abstract</button>
-            <span class="text-muted text-[13.5px]">Fields marked * are required.</span>
+          <div class="flex flex-wrap items-center gap-5">
+            <button type="submit" class={btnPrimary}>
+              Submit abstract
+            </button>
+            <span class="text-[13px] text-ash">Fields marked * are required.</span>
           </div>
         </form>
       </div>
@@ -241,19 +266,26 @@ export function AbstractSubmissionPage({
 export function AbstractSubmittedPage({ reference }: { reference: string }) {
   return (
     <PageShell>
-      <div class={kicker}>Call for Contributions</div>
-      <h1 id="abs-title" class={pageTitle}>Thank you, your abstract was received.</h1>
+      <Eyebrow>Call for abstracts</Eyebrow>
+      <h1 id="abs-title" class={pageTitle}>
+        Thank you, your abstract was received.
+      </h1>
       <div class={card}>
-        <p class="m-0 mb-2 text-muted text-[14px] font-bold tracking-[0.08em] uppercase">Your reference</p>
-        <p class="m-0 mb-6 text-pine text-[clamp(24px,4vw,34px)] font-extrabold tracking-[0.02em]">{reference}</p>
-        <p class="m-0 mb-8 text-[16px] leading-[1.65]">
-          A confirmation with a copy of your abstract is on its way to the email address you gave. If it
-          does not arrive within an hour, check your spam folder or contact the conference office, quoting
-          your reference.
+        <p class="font-sans text-[11px] font-bold uppercase tracking-[0.24em] text-ash">Your reference</p>
+        <p class="mt-1 mb-6 font-display text-[clamp(1.5rem,3vw,2.1rem)] font-extrabold tracking-[-0.02em] text-ember">{reference}</p>
+        <p class="mb-8 text-[15.5px] leading-[1.75] text-ink/85">
+          A confirmation with a copy of your abstract is on its way to the email address you gave. If it does not
+          arrive within an hour, check your spam folder or contact the conference office at{" "}
+          <a class="underline underline-offset-4" href={`mailto:${conference.contacts.programme}`}>
+            {conference.contacts.programme}
+          </a>
+          , quoting your reference.
         </p>
         <div class="flex flex-wrap gap-3">
-          <a class={btnPrimary} href="/">Back to BLAIM 2027</a>
-          <a class={`${btn} bg-transparent text-pine border border-pine/40 hover:text-pine hover:bg-mist/50`} href={ABSTRACT_PATH}>
+          <a class={btnPrimary} href="/">
+            Back to {conference.shortName}
+          </a>
+          <a class={btnGhost} href={ABSTRACT_PATH}>
             Submit another abstract
           </a>
         </div>

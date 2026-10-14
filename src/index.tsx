@@ -58,7 +58,7 @@ const abstractPage = (c: Context, values: AbstractForm, errors?: FieldErrors, fo
         <Layout
           path={ABSTRACT_PATH}
           title="Abstract Submission"
-          description="Submit an abstract to BLAIM 2027, Parul University, Vadodara, 27-29 January 2027."
+          description="Submit an abstract to BLAIM 2.0, Parul University, Vadodara, 28-30 January 2027. Deadline 1 November 2026."
           noindex={!!(errors || formError)}
         >
           <Header />

@@ -1,8 +1,12 @@
-# BLAIM 2027 homepage (Hono + Vite, SSR)
+# BLAIM 2.0 conference site (Hono + Vite, SSR)
 
-The homepage from `../www.worldbrainmapping.org/index.html`, converted from WordPress/Elementor into
-a server-rendered [Hono](https://hono.dev) app. Only the homepage is included. Links to other pages
-still point to `/...`.
+Website for **BLAIM 2.0**, the 2nd International Multi-Disciplinary Conference on Mindfulness,
+Behavioural Science & Legal Innovation (SCOPE, Parul University, Vadodara, 28–30 January 2027,
+hybrid). A server-rendered [Hono](https://hono.dev) app with Tailwind CSS v4.
+
+Content and visual theme follow the conference brochure in `docs/BLAIM-2- Brochure - 13- OCT.pdf`.
+The brochure's background renders are in `docs/img/` (originals) and `public/assets/brochure/`
+(WebP, two sizes each, generated with sharp).
 
 ## Commands
 
@@ -26,10 +30,22 @@ npm run typecheck
 | `SMTP_*`   | Outgoing mail (nodemailer). Unset `SMTP_HOST` = mail is logged, not sent. |
 | `ABSTRACT_*`, `TRUST_PROXY` | Abstract submission settings, see `.env.example`. |
 
+## Content
+
+Everything the homepage says comes from `src/data/conference.ts`, transcribed from the brochure:
+dates, theme line, organiser and associated institutes, about/aim/rationale, the five themes,
+guests and speakers per theme, committees, abstract guidelines, fellowship, fees, key dates,
+host institution texts, venue, hotel guide and Vadodara attractions.
+
+- Registration and payment links are placeholders in the brochure. They are `null` in
+  `links` and render as "To be announced"; set the URL to publish a link.
+- Speaker portraits are not available as separate files, so people get initials monograms.
+
 ## Abstract submission (`/abstract-submission/`)
 
 A plain HTML form (works without JS) in `src/pages/AbstractSubmission.tsx`, handled in `src/index.tsx`,
-logic in `src/lib/abstracts.ts`, options (themes, contribution types, word limit) in `src/data/abstracts.ts`.
+logic in `src/lib/abstracts.ts`, options and limits in `src/data/abstracts.ts` (themes come from
+`conference.ts`; 200–300 words; at most three authors, as per the brochure).
 
 - Each valid submission is appended to `ABSTRACT_STORE_PATH` (default `data/abstracts.jsonl`, one JSON
   object per line) **before** the success redirect. This file is the record of submissions: it needs a
@@ -44,47 +60,45 @@ logic in `src/lib/abstracts.ts`, options (themes, contribution types, word limit
 
 ```
 src/
-  index.tsx            routes: /, /robots.txt, /sitemap.xml, static files + cache headers
+  index.tsx            routes: /, /abstract-submission/, /robots.txt, /sitemap.xml, static files
   site.ts              SEO metadata and JSON-LD (Organization, WebSite, WebPage, Event)
   assets.ts            dev paths vs hashed production assets (Vite manifest)
-  data/menu.ts         header navigation (labels + links)
+  data/conference.ts   all brochure content
+  data/menu.ts         header navigation (section anchors + CTA)
+  data/abstracts.ts    abstract form options and limits
   components/
-    Layout.tsx         <html>/<head>: meta, OG/Twitter, preloads, JSON-LD, optional GTM
-    Header.tsx         sticky header, desktop dropdowns / mega-menus, mobile menu
-    Main.tsx           top video + the sections below
-    Footer.tsx         footer
-    icons.tsx          inline SVG icons (Font Awesome Free glyphs, no webfont)
-  sections/            one component per homepage section
-  client/              the only client JS: header menu + CTA dataLayer events (~2 KB gzip)
-  styles/app.css       Tailwind entry: theme tokens, breakpoints, base styles
-  styles/fonts.css     self-hosted Montserrat / Orbitron
-public/assets/         images, videos and fonts copied from the original site
-public/assets/brand/   cropped copies of public/logo.svg and logo_white.svg (used by header/footer)
+    Layout.tsx         <html>/<head>: meta, OG/Twitter, icons, preloads, JSON-LD, optional GTM
+    Header.tsx         fixed header, transparent over the hero, mobile menu
+    Footer.tsx         organiser, association, venue, contacts
+    Main.tsx           homepage section order
+    ui.tsx             shared pieces: container, Eyebrow, Title, Button, ArchImage, Backdrop, PersonCard
+  sections/            Hero, KeyDates, About, Themes, Speakers, Committees, Abstracts,
+                       Registration, Host, Venue
+  client/              the only client JS: header/menu/scroll reveals (ui.ts), CTA dataLayer
+                       events, abstract word count
+  styles/app.css       Tailwind entry: theme tokens, base styles, reveal/arch/rule components
+  styles/fonts.css     self-hosted Montserrat (800 for display, 400-600 for text)
+public/assets/brand/     logos, favicon, share image
+public/assets/brochure/  background renders (WebP)
+public/assets/uploads/   Montserrat woff2 (from the original site)
 ```
 
-## Styling (Tailwind CSS v4)
+## Theme ("The Rotunda")
 
-All styling is Tailwind utility classes in the TSX. There are no component stylesheets.
+Defined in `@theme` in `src/styles/app.css`: dark stone surfaces (`night`, `char`, `umber`, `bark`),
+amber light (`ember`, `amber`, `glow`), parchment for light sections (`sand`, `parchment`, `linen`),
+text (`ink`, `ash`, `mist`) and the brochure's red point accent (`signal`). Type is Montserrat
+throughout, after the logo's heavy geometric letterforms: weight 800 with tight tracking for
+display, 400-600 for text.
 
-- **Colours**: `pine`, `jade`, `mist`, `stone`, `gold`, `ink` (e.g. `bg-pine`, `text-gold`), defined
-  in `@theme` in `src/styles/app.css`.
-- **Breakpoints** match the original CSS exactly and are inclusive: `lte-980:` means
-  `@media (max-width: 980px)`, `gte-1200:` means `(min-width: 1200px)`. They are listed widest
-  first in `app.css` because registration order is cascade order.
-- **No preflight.** The base layer reproduces the original site's globals (e.g. `body` 20px/1.6em
-  Montserrat, heading margins, `a` colour). Utilities override it.
-- **Don't put two utilities for the same property on one element** (e.g. two `text-[…]` sizes).
-  Tailwind resolves them by its own sort order, not class order. Shared class strings in the
-  components are split so that never happens.
-- Header open/closed state is a `data-open` attribute set by `src/client/header.ts`, styled with
-  `group-data-open/…` variants.
+Recurring motifs from the brochure, as components in `app.css`: `.arch-outline` (thin arch with a
+red dot at the apex), `.rule-dot` (hairline ending in a red dot), `.red-initial` (red first letter on
+theme titles), `.drop-cap`. Portrait renders are masked into arches with `rounded-t-full`
+(`ArchImage`) or used as dimmed full-bleed backdrops (`Backdrop`).
 
-## Logos
+Motion: hero entrance (`animate-rise`), a slow light beam (`animate-beam`), and scroll reveals via
+`.reveal` + `IntersectionObserver` (only active when `<html class="js">`, so nothing is hidden
+without JavaScript). All of it respects `prefers-reduced-motion`.
 
-`public/logo.svg` (dark) and `public/logo_white.svg` (white) have a lot of empty canvas around
-the wordmark. `public/assets/brand/` holds copies with the viewBox trimmed to the artwork. The
-header uses the white one and the footer the dark one. The production server only serves
-`/static/*` and `/assets/*`, so files at the `public/` root aren't reachable there.
-
-`scripts/convert.mjs` is the one-off script that produced the first (pre-Tailwind) version from
-the WordPress export. **Don't re-run it**: it would overwrite the Tailwind components.
+`scripts/convert.mjs` is the one-off script that produced the first version from a WordPress export.
+It predates this design; don't re-run it.

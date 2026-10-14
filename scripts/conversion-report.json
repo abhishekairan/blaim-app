@@ -1,0 +1,339 @@
+{
+  "bodyClass": "home-page bp-nouveau home wp-singular page-template-default page page-id-20749 wp-custom-logo wp-embed-responsive wp-theme-hello-elementor sbmt-lh-active surerank-1.8.1 eio-default ecc-default ehf-template-hello-elementor ehf-stylesheet-hello-elementor manage-default theme-default elementor-default elementor-kit-5 elementor-page elementor-page-20749",
+  "cssChunks": [
+    {
+      "label": "inline wp-img-auto-sizes-contain-inline-css",
+      "bytes": 173,
+      "local": false
+    },
+    {
+      "label": "/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css?ver=4.3.1",
+      "bytes": 59344,
+      "local": true
+    },
+    {
+      "label": "/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css?ver=4.3.1",
+      "bytes": 26702,
+      "local": true
+    },
+    {
+      "label": "/wp-content/plugins/header-footer-elementor/inc/widgets-css/frontend.css?ver=2.8.8",
+      "bytes": 82967,
+      "local": true
+    },
+    {
+      "label": "inline global-styles-inline-css",
+      "bytes": 15026,
+      "local": false
+    },
+    {
+      "label": "/wp-content/plugins/header-footer-elementor/assets/css/header-footer-elementor.css?ver=2.8.8",
+      "bytes": 776,
+      "local": true
+    },
+    {
+      "label": "/wp-content/plugins/wrapper-link-elementor/includes/../assets/css/EWLstyle.css?ver=7.1.2",
+      "bytes": 271,
+      "local": true
+    },
+    {
+      "label": "/wp-content/plugins/elementor/assets/lib/eicons/css/elementor-icons.min.css?ver=5.54.0",
+      "bytes": 22305,
+      "local": true
+    },
+    {
+      "label": "/wp-content/uploads/elementor/css/custom-frontend.min.css?ver=1790223773",
+      "bytes": 54847,
+      "local": true
+    },
+    {
+      "label": "inline elementor-frontend-inline-css",
+      "bytes": 4422,
+      "local": false
+    },
+    {
+      "label": "/wp-content/uploads/elementor/css/post-5.css?ver=1790223773",
+      "bytes": 2307,
+      "local": true
+    },
+    {
+      "label": "/wp-content/uploads/elementor/css/post-20749.css?ver=1790225780",
+      "bytes": 425,
+      "local": true
+    },
+    {
+      "label": "/wp-content/uploads/elementor/css/base-desktop.css?ver=6ab4a59e092ae",
+      "bytes": 8064,
+      "local": true
+    },
+    {
+      "label": "/wp-content/uploads/elementor/css/base-mobile.css?ver=6ab4a59e092ae",
+      "bytes": 87,
+      "local": true
+    },
+    {
+      "label": "/wp-content/themes/hello-elementor/style.min.css?ver=3.3.0",
+      "bytes": 5501,
+      "local": true
+    },
+    {
+      "label": "/wp-content/themes/hello-elementor/theme.min.css?ver=3.3.0",
+      "bytes": 5065,
+      "local": true
+    },
+    {
+      "label": "/wp-content/themes/hello-elementor/header-footer.min.css?ver=3.3.0",
+      "bytes": 7210,
+      "local": true
+    },
+    {
+      "label": "/wp-content/plugins/elementor/assets/css/widget-image.min.css?ver=4.3.1",
+      "bytes": 214,
+      "local": true
+    },
+    {
+      "label": "/wp-content/plugins/elementskit-lite/widgets/init/assets/css/common.css?ver=4.0.6",
+      "bytes": 158448,
+      "local": true
+    },
+    {
+      "label": "/wp-content/plugins/elementor-pro/assets/css/modules/sticky.min.css?ver=4.3.0",
+      "bytes": 162,
+      "local": true
+    },
+    {
+      "label": "/wp-content/plugins/elementor/assets/css/widget-spacer.min.css?ver=4.3.1",
+      "bytes": 1793,
+      "local": true
+    },
+    {
+      "label": "/wp-content/plugins/elementor/assets/css/widget-heading.min.css?ver=4.3.1",
+      "bytes": 560,
+      "local": true
+    },
+    {
+      "label": "/wp-content/uploads/elementor/css/custom-widget-icon-list.min.css?ver=1790223773",
+      "bytes": 10282,
+      "local": true
+    },
+    {
+      "label": "/wp-content/plugins/elementor/assets/css/widget-social-icons.min.css?ver=4.3.1",
+      "bytes": 5110,
+      "local": true
+    },
+    {
+      "label": "/wp-content/uploads/elementor/css/custom-apple-webkit.min.css?ver=1790223773",
+      "bytes": 6713,
+      "local": true
+    },
+    {
+      "label": "/wp-content/uploads/elementor/css/post-16659.css?ver=1790223774",
+      "bytes": 9471,
+      "local": true
+    },
+    {
+      "label": "/wp-content/uploads/elementor/css/post-332.css?ver=1790223774",
+      "bytes": 10111,
+      "local": true
+    },
+    {
+      "label": "/wp-content/plugins/elementskit/modules/parallax/assets/css/style.css?ver=3.7.8",
+      "bytes": 7488,
+      "local": true
+    },
+    {
+      "label": "/wp-content/plugins/elementor/assets/lib/eicons/css/elementor-icons.min.css?ver=5.34.0",
+      "bytes": 22305,
+      "local": true
+    },
+    {
+      "label": "/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css?ver=3.24.3",
+      "bytes": 10255,
+      "local": true
+    },
+    {
+      "label": "/wp-content/plugins/elementor/assets/css/widget-social-icons.min.css?ver=3.24.0",
+      "bytes": 5110,
+      "local": true
+    },
+    {
+      "label": "/wp-content/plugins/elementor/assets/lib/font-awesome/css/brands.css?ver=5.15.3",
+      "bytes": 732,
+      "local": true
+    },
+    {
+      "label": "/wp-content/plugins/elementor/assets/lib/font-awesome/css/fontawesome.css?ver=5.15.3",
+      "bytes": 72184,
+      "local": true
+    },
+    {
+      "label": "/wp-content/plugins/elementor/assets/lib/font-awesome/css/solid.css?ver=5.15.3",
+      "bytes": 727,
+      "local": true
+    },
+    {
+      "label": "/wp-content/plugins/elementor-pro/assets/css/widget-blockquote.min.css?ver=3.25.0",
+      "bytes": 5234,
+      "local": true
+    },
+    {
+      "label": "/wp-content/plugins/essential-addons-for-elementor-lite/assets/front-end/css/view/general.min.css?ver=6.6.7",
+      "bytes": 7746,
+      "local": true
+    },
+    {
+      "label": "/wp-content/plugins/royal-elementor-addons/assets/css/frontend.min.css?ver=1.7.1068",
+      "bytes": 448483,
+      "local": true
+    },
+    {
+      "label": "/wp-content/uploads/elementor/google-fonts/css/lato.css?ver=1753054881",
+      "bytes": 9264,
+      "local": true
+    },
+    {
+      "label": "/wp-content/uploads/elementor/google-fonts/css/robotoslab.css?ver=1753054882",
+      "bytes": 25515,
+      "local": true
+    },
+    {
+      "label": "/wp-content/uploads/elementor/google-fonts/css/montserrat.css?ver=1753054884",
+      "bytes": 38592,
+      "local": true
+    },
+    {
+      "label": "/wp-content/uploads/elementor/google-fonts/css/orbitron.css?ver=1753054885",
+      "bytes": 2742,
+      "local": true
+    },
+    {
+      "label": "/wp-content/plugins/elementskit-lite/modules/elementskit-icon-pack/assets/css/ekiticons.css?ver=4.0.6",
+      "bytes": 83510,
+      "local": true
+    },
+    {
+      "label": "/wp-content/plugins/elementor/assets/lib/font-awesome/css/fontawesome.min.css?ver=5.15.3",
+      "bytes": 58071,
+      "local": true
+    },
+    {
+      "label": "/wp-content/plugins/elementor/assets/lib/font-awesome/css/solid.min.css?ver=5.15.3",
+      "bytes": 669,
+      "local": true
+    },
+    {
+      "label": "/wp-content/plugins/elementor/assets/lib/font-awesome/css/brands.min.css?ver=5.15.3",
+      "bytes": 675,
+      "local": true
+    },
+    {
+      "label": "inline essential-blocks-global-styles",
+      "bytes": 1176,
+      "local": false
+    },
+    {
+      "label": "inline sbmt-lightweight-header-css",
+      "bytes": 14339,
+      "local": false
+    },
+    {
+      "label": "inline wp-custom-css",
+      "bytes": 6668,
+      "local": false
+    },
+    {
+      "label": "inline sbmt-lightweight-header-live-fixes-css",
+      "bytes": 904,
+      "local": false
+    },
+    {
+      "label": "inline sbmt-transparent-header-logo-css",
+      "bytes": 142,
+      "local": false
+    },
+    {
+      "label": "theme style.css",
+      "bytes": 18368,
+      "local": false
+    },
+    {
+      "label": "section css",
+      "bytes": 9458,
+      "local": false
+    },
+    {
+      "label": "section css",
+      "bytes": 23046,
+      "local": false
+    },
+    {
+      "label": "section css",
+      "bytes": 10148,
+      "local": false
+    },
+    {
+      "label": "section css",
+      "bytes": 19809,
+      "local": false
+    },
+    {
+      "label": "section css",
+      "bytes": 7648,
+      "local": false
+    }
+  ],
+  "combinedBytes": 1409672,
+  "purgedBytes": 185169,
+  "assets": {
+    "copied": [
+      "/assets/uploads/2025/01/logo-2.png",
+      "/assets/uploads/2025/08/New-website-Brain-Mapping-2025-hero.webm",
+      "/assets/uploads/2025/08/web-1-sbmt.webp",
+      "/assets/uploads/2025/07/AdobeStock_1525825758.webm",
+      "/assets/uploads/2025/01/SBMT-Burgundy-plain-PNG.png",
+      "/assets/uploads/2024/06/SBMT-App-Logo-1-1-1-1024x995.png",
+      "/assets/uploads/2024/06/Apple-Download-App-1-1-1-1-1-2048x643.png",
+      "/assets/uploads/2024/06/Google-Download-App-1-1-1-1-2048x642.png",
+      "/assets/plugins/elementor/assets/lib/font-awesome/webfonts/fa-brands-400.eot",
+      "/assets/plugins/elementor/assets/lib/font-awesome/webfonts/fa-brands-400.woff2",
+      "/assets/plugins/elementor/assets/lib/font-awesome/webfonts/fa-brands-400.woff",
+      "/assets/plugins/elementor/assets/lib/font-awesome/webfonts/fa-brands-400.ttf",
+      "/assets/plugins/elementor/assets/lib/font-awesome/webfonts/fa-brands-400.svg",
+      "/assets/plugins/elementor/assets/lib/font-awesome/webfonts/fa-regular-400.eot",
+      "/assets/plugins/elementor/assets/lib/font-awesome/webfonts/fa-regular-400.woff2",
+      "/assets/plugins/elementor/assets/lib/font-awesome/webfonts/fa-regular-400.woff",
+      "/assets/plugins/elementor/assets/lib/font-awesome/webfonts/fa-regular-400.ttf",
+      "/assets/plugins/elementor/assets/lib/font-awesome/webfonts/fa-regular-400.svg",
+      "/assets/plugins/elementor/assets/lib/font-awesome/webfonts/fa-solid-900.eot",
+      "/assets/plugins/elementor/assets/lib/font-awesome/webfonts/fa-solid-900.woff2",
+      "/assets/plugins/elementor/assets/lib/font-awesome/webfonts/fa-solid-900.woff",
+      "/assets/plugins/elementor/assets/lib/font-awesome/webfonts/fa-solid-900.ttf",
+      "/assets/plugins/elementor/assets/lib/font-awesome/webfonts/fa-solid-900.svg",
+      "/assets/uploads/elementor/google-fonts/fonts/montserrat-jtuqjig1_i6t8kchkm459wxrxc7mw9c.woff2",
+      "/assets/uploads/elementor/google-fonts/fonts/montserrat-jtuqjig1_i6t8kchkm459wxrzs7mw9c.woff2",
+      "/assets/uploads/elementor/google-fonts/fonts/montserrat-jtuqjig1_i6t8kchkm459wxrxi7mw9c.woff2",
+      "/assets/uploads/elementor/google-fonts/fonts/montserrat-jtuqjig1_i6t8kchkm459wxrxy7mw9c.woff2",
+      "/assets/uploads/elementor/google-fonts/fonts/montserrat-jtuqjig1_i6t8kchkm459wxrys7m.woff2",
+      "/assets/uploads/elementor/google-fonts/fonts/montserrat-jtusjig1_i6t8kchkm459wrhyzbi.woff2",
+      "/assets/uploads/elementor/google-fonts/fonts/montserrat-jtusjig1_i6t8kchkm459w1hyzbi.woff2",
+      "/assets/uploads/elementor/google-fonts/fonts/montserrat-jtusjig1_i6t8kchkm459wzhyzbi.woff2",
+      "/assets/uploads/elementor/google-fonts/fonts/montserrat-jtusjig1_i6t8kchkm459wdhyzbi.woff2",
+      "/assets/uploads/elementor/google-fonts/fonts/montserrat-jtusjig1_i6t8kchkm459wlhyw.woff2",
+      "/assets/uploads/elementor/google-fonts/fonts/orbitron-ymjrmilzdpvbhqql_qq7dy0.woff2",
+      "/assets/uploads/2025/08/28.jpg"
+    ],
+    "downloaded": [],
+    "missing": []
+  },
+  "files": [
+    "src/components/Header.tsx",
+    "src/sections/AtAGlance.tsx",
+    "src/sections/Overview.tsx",
+    "src/sections/Programme.tsx",
+    "src/sections/Leadership.tsx",
+    "src/sections/Conclusion.tsx",
+    "src/components/Main.tsx",
+    "src/components/Footer.tsx",
+    "src/styles/app.css"
+  ]
+}

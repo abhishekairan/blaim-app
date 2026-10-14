@@ -1,0 +1,252 @@
+/*
+ * Tailwind v4 entry. Preflight is intentionally not imported: the base layer below reproduces the
+ * original page's global styles (Hello Elementor theme + Elementor kit), which differ from preflight.
+ */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@import "./fonts.css";
+
+@source not "../../.pre-tailwind";
+@source not "../../scripts";
+
+/*
+ * Theming. The active theme is <html data-theme="…"> (registry: src/theme.ts). Each theme only
+ * re-points custom properties; markup never branches on the theme.
+ *
+ * - Palette colours that need alpha inside arbitrary values (gradients, shadows) are RGB triplets,
+ *   written as rgb(var(--rgb-gold)/0.16).
+ * - Several palette colours play two roles (e.g. pine is both a surface and a heading colour on
+ *   light sections). Tailwind resolves text-*, bg-* and border-* from --text-color-*,
+ *   --background-color-* and --border-color-* before --color-*, so a theme can split those roles
+ *   without touching markup.
+ */
+@theme {
+  --color-pine: rgb(var(--rgb-pine));
+  --color-jade: rgb(var(--rgb-jade));
+  --color-mist: #ceded5;
+  --color-stone: #f6f6f6;
+  --color-gold: rgb(var(--rgb-gold));
+  --color-ink: rgb(var(--rgb-ink));
+
+  /* Semantic roles: aliases of the palette in the classic theme. */
+  --color-on-gold: var(--color-pine);
+  --color-line: var(--color-pine);
+  --color-heading: #231f20;
+  --color-muted: #55606a;
+  --color-faint: #645e5e;
+  --color-link-hover: #1e1472;
+  --color-field: #b9c7c0;
+  --color-danger: #b42318;
+  --color-danger-soft: #fdf1f2;
+  --color-danger-line: #f1aeb5;
+  --color-danger-strong: #7a1a14;
+
+  /* Role splits (see above). Classic: identical to the palette. */
+  --text-color-pine: var(--color-pine);
+  --text-color-jade: var(--color-jade);
+  --text-color-ink: var(--color-ink);
+  --text-color-mist: var(--color-mist);
+  --text-color-stone: var(--color-stone);
+  --text-color-white: #fff;
+  --background-color-white: #fff;
+  --background-color-pine: var(--color-pine);
+  --background-color-stone: var(--color-stone);
+  --background-color-mist: var(--color-mist);
+  --background-color-jade: var(--color-jade);
+  --border-color-white: #fff;
+  --border-color-pine: var(--color-pine);
+  --border-color-jade: var(--color-jade);
+  --border-color-mist: var(--color-mist);
+  --border-color-ink: var(--color-ink);
+  --accent-color-pine: var(--color-pine);
+
+  --font-montserrat: "Montserrat", Arial, sans-serif;
+  --font-orbitron: "Orbitron", sans-serif;
+  --font-inter: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --font-georgia: Georgia, "Times New Roman", serif;
+}
+
+/*
+ * Breakpoints copied from the original CSS (inclusive max-width / min-width queries).
+ * Registration order is cascade order: wider max-width queries first so narrower ones win.
+ */
+@custom-variant lte-1370 (@media (max-width: 1370px));
+@custom-variant lte-1366 (@media (max-width: 1366px));
+@custom-variant lte-1199 (@media (max-width: 1199px));
+@custom-variant lte-1040 (@media (max-width: 1040px));
+@custom-variant lte-1024 (@media (max-width: 1024px));
+@custom-variant lte-980 (@media (max-width: 980px));
+@custom-variant lte-860 (@media (max-width: 860px));
+@custom-variant lte-767 (@media (max-width: 767px));
+@custom-variant lte-760 (@media (max-width: 760px));
+@custom-variant lte-680 (@media (max-width: 680px));
+@custom-variant lte-640 (@media (max-width: 640px));
+@custom-variant gte-768 (@media (min-width: 768px));
+@custom-variant gte-981 (@media (min-width: 981px));
+@custom-variant gte-1041 (@media (min-width: 1041px));
+@custom-variant gte-1200 (@media (min-width: 1200px));
+
+/* For the rare element that must differ structurally per theme (e.g. swapping a logo file). */
+@custom-variant neural (&:where([data-theme="neural"] *));
+
+@layer base {
+  :root {
+    --rgb-pine: 22 86 78;
+    --rgb-jade: 46 110 98;
+    --rgb-gold: 255 215 90;
+    --rgb-ink: 18 42 58;
+  }
+
+  /*
+   * Neural: brain-scan palette on the same light layout as classic. White/light sections stay
+   * light; the dark sections become near-black green with scan-green glow; coral-red HUD accents
+   * replace gold.
+   */
+  :root[data-theme="neural"] {
+    --rgb-ink: 4 20 11;
+    --rgb-pine: 10 74 38;
+    --rgb-jade: 18 128 63;
+    --rgb-gold: 255 90 60;
+    --color-mist: #d4efdd;
+    --color-stone: #f2f9f4;
+
+    --color-on-gold: #2a0804;
+    --color-heading: #0c1f14;
+    --color-link-hover: #12803f;
+    --color-field: #b3d4bf;
+  }
+
+  :root[data-theme="neural"] {
+    ::selection {
+      color: #fff;
+      background-color: #12803f;
+    }
+
+    /* Scan-green glow on headings in the dark sections. */
+    :where(h1, h2, h3).text-white {
+      text-shadow: 0 0 32px rgb(61 220 110 / 0.4);
+    }
+  }
+
+  *,
+  ::before,
+  ::after {
+    box-sizing: border-box;
+    border: 0 solid;
+  }
+
+  html {
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--background-color-white);
+    color: var(--text-color-ink);
+    font-family: var(--font-montserrat);
+    font-size: 20px;
+    font-weight: 400;
+    /* em, not unitless: descendants inherit the computed px value, as on the original site */
+    line-height: 1.6em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  @media (max-width: 1366px) {
+    body {
+      font-size: 18px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    body {
+      font-size: 16px;
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin-block: 0.5rem 1rem;
+    color: inherit;
+    font-family: var(--font-montserrat);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  h1 {
+    font-family: var(--font-orbitron);
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  h3 {
+    color: var(--color-heading);
+    font-size: 1.75rem;
+  }
+
+  h4 {
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+
+  p {
+    margin-block: 0 0.9rem;
+  }
+
+  a {
+    color: var(--color-heading);
+    font-family: var(--font-montserrat);
+    text-decoration: none;
+    background-color: transparent;
+  }
+
+  a:hover,
+  a:active {
+    color: #336;
+  }
+
+  b,
+  strong {
+    font-weight: bolder;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  svg:not(:root) {
+    display: inline;
+    overflow: hidden;
+  }
+
+  ul,
+  li {
+    margin-block: 0;
+  }
+
+  button {
+    margin: 0;
+    font-family: inherit;
+    font-size: 1rem;
+    line-height: 1.5;
+    text-transform: none;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  html.sbmt-lh-menu-open,
+  html.sbmt-lh-menu-open body {
+    @media (max-width: 1199px) {
+      overflow: hidden;
+    }
+  }
+}

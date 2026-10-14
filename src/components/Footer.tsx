@@ -12,7 +12,8 @@ export function Footer() {
     <footer class="relative border-t border-amber/15 bg-char text-sand">
       <div class={`${container} grid gap-12 py-16 lg:grid-cols-[1.3fr_1fr_1fr_1fr]`}>
         <div>
-          <img class="h-10 w-auto" src="/assets/brand/logo-white.svg" width="2966" height="1000" alt={conference.shortName} loading="lazy" decoding="async" />
+          <img class="h-10 w-auto light:hidden" src="/assets/brand/logo-white.svg" width="2966" height="1000" alt={conference.shortName} loading="lazy" decoding="async" />
+          <img class="hidden h-10 w-auto light:block" src="/assets/brand/logo.svg" width="2966" height="1000" alt="" loading="lazy" decoding="async" />
           <p class="mt-6 max-w-[30rem] font-display text-[1.15rem] font-extrabold leading-snug tracking-[-0.02em] text-sand">
             {conference.edition} {conference.title}
           </p>

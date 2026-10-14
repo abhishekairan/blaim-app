@@ -48,7 +48,7 @@ export function Abstracts() {
           </div>
         </div>
 
-        <aside class="reveal relative self-start bg-night p-8 text-sand shadow-[0_40px_90px_-40px_rgba(0,0,0,0.7)] md:p-10 lg:sticky lg:top-28">
+        <aside class="reveal relative self-start bg-night p-8 text-sand shadow-[0_40px_90px_-40px_color-mix(in_oklab,var(--color-shade)_70%,transparent)] md:p-10 lg:sticky lg:top-28">
           <span class="absolute -top-3 left-10 h-[7px] w-[7px] rounded-full bg-signal" aria-hidden="true"></span>
           <span class="absolute left-10 top-0 h-px w-16 bg-amber/50" aria-hidden="true"></span>
           <Eyebrow>Fellowship</Eyebrow>

@@ -96,6 +96,21 @@ red dot at the apex), `.rule-dot` (hairline ending in a red dot), `.red-initial`
 theme titles), `.drop-cap`. Portrait renders are masked into arches with `rounded-t-full`
 (`ArchImage`) or used as dimmed full-bleed backdrops (`Backdrop`).
 
+### Theme provider
+
+Two themes share one token set: **Rotunda** (dark, the default, as in the brochure) and
+**Daylight** (white, after the brochure's cream pages). The registry is `src/theme.ts`; the active
+theme is `<html data-theme="…">`. `:root[data-theme="daylight"]` in `app.css` only re-points the
+custom properties (surfaces go white/linen, the amber "light" tokens become deep ambers that read
+on white, text tokens become ink, `--color-shade` keeps shadows warm, `--hero-image` swaps the
+hero render), so no component branches on the theme. The one structural exception is the logo
+file, swapped with the `light:` variant.
+
+The header toggle (`[data-theme-toggle]`) is wired by `src/client/theme.ts`; the choice is kept in
+`localStorage` and applied by an inline script in `<head>` before first paint, so pages stay
+cacheable and never flash the default. Adding a theme: one entry in `THEMES` and one
+`:root[data-theme="…"]` block.
+
 Motion: hero entrance (`animate-rise`), a slow light beam (`animate-beam`), and scroll reveals via
 `.reveal` + `IntersectionObserver` (only active when `<html class="js">`, so nothing is hidden
 without JavaScript). All of it respects `prefers-reduced-motion`.

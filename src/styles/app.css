@@ -30,6 +30,8 @@
   --color-mist: #a99c8c;
   /* Accent */
   --color-signal: #e8322a;
+  /* Shadow colour: black on the dark theme, warm brown on the light one so shadows never go grey */
+  --color-shade: #000000;
   /* Forms */
   --color-danger: #b42318;
   --color-danger-soft: #fdf1f2;
@@ -77,7 +79,39 @@
   }
 }
 
+/* For the rare element that must differ structurally per theme (e.g. swapping a logo file). */
+@custom-variant light (&:where([data-theme="daylight"] *));
+
 @layer base {
+  /*
+   * Theming. The active theme is <html data-theme="…"> (registry: src/theme.ts). Each theme only
+   * re-points the custom properties above; markup never branches on the theme.
+   */
+  :root {
+    color-scheme: dark;
+    --hero-image: url("/assets/brochure/columns-deep-shadow.webp");
+  }
+
+  /*
+   * Daylight: the brochure's cream pages. Same roles, re-pointed: surfaces go white/linen, the
+   * "light" tokens become deep ambers that read on white, the text tokens become ink.
+   */
+  :root[data-theme="daylight"] {
+    color-scheme: light;
+    --color-night: #ffffff;
+    --color-char: #faf6ee;
+    --color-umber: #f3ece0;
+    --color-bark: #e6dac6;
+    --color-stone: #a07c58;
+    --color-ember: #7d4a16;
+    --color-amber: #9a5f22;
+    --color-glow: #3a2412;
+    --color-sand: #1c1511;
+    --color-mist: #7d6e60;
+    --color-shade: #3a2d23;
+    --hero-image: url("/assets/brochure/light-floating-sun.webp");
+  }
+
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 84px;

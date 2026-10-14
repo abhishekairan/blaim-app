@@ -1,5 +1,9 @@
 import { cta, menu } from "../data/menu";
 import { conference } from "../data/conference";
+import { DEFAULT_THEME, THEMES } from "../theme";
+
+const themeNames = Object.keys(THEMES) as (keyof typeof THEMES)[];
+const nextThemeLabel = THEMES[themeNames[(themeNames.indexOf(DEFAULT_THEME) + 1) % themeNames.length]!].label;
 
 // Fixed header. Transparent over the hero; src/client/ui.ts sets data-scrolled once the page moves
 // and data-open when the mobile menu is open. Desktop (>=1024px) shows the inline nav.
@@ -17,8 +21,9 @@ export function Header() {
     >
       <div class="mx-auto flex h-[76px] w-[min(1360px,calc(100%-2.5rem))] items-center justify-between gap-6">
         <a class="relative z-10 inline-flex items-center" href="/" aria-label={`${conference.shortName} home`}>
+          {/* The logo is the one element that swaps per theme: white wordmark on Rotunda, black on Daylight. */}
           <img
-            class="h-9 w-auto md:h-10"
+            class="h-9 w-auto light:hidden md:h-10"
             src="/assets/brand/logo-white.svg"
             width="2966"
             height="1000"
@@ -27,6 +32,7 @@ export function Header() {
             fetchpriority="high"
             decoding="async"
           />
+          <img class="hidden h-9 w-auto light:block md:h-10" src="/assets/brand/logo.svg" width="2966" height="1000" alt="" decoding="async" />
         </a>
 
         <nav
@@ -52,9 +58,24 @@ export function Header() {
           </p>
         </nav>
 
+        <div class="relative z-10 flex items-center gap-4">
+          {/* Label and aria-label are kept in sync with the active theme by src/client/theme.ts. */}
+          <button
+            type="button"
+            data-theme-toggle
+            class="inline-flex h-9 items-center gap-2.5 border border-amber/40 px-3 font-sans text-[10.5px] font-bold uppercase tracking-[0.2em] text-sand/85 transition-colors duration-300 hover:border-amber hover:text-glow focus-visible:border-amber focus-visible:outline-none"
+            aria-label={`Switch to ${nextThemeLabel} theme`}
+          >
+            <span
+              class="inline-block h-3 w-3 rounded-full border border-amber bg-[linear-gradient(90deg,var(--color-amber)_50%,transparent_50%)]"
+              aria-hidden="true"
+            ></span>
+            <span data-theme-label class="max-sm:sr-only">{THEMES[DEFAULT_THEME].label}</span>
+          </button>
+
         <button
           type="button"
-          class="relative z-10 inline-flex h-11 items-center gap-3 font-sans text-[11px] font-bold uppercase tracking-[0.24em] text-sand lg:hidden"
+          class="inline-flex h-11 items-center gap-3 font-sans text-[11px] font-bold uppercase tracking-[0.24em] text-sand lg:hidden"
           data-menu-toggle
           aria-expanded="false"
           aria-controls="primary-navigation"
@@ -67,6 +88,7 @@ export function Header() {
             <span class="block h-px w-full bg-current transition-transform duration-300 group-data-open/h:-translate-y-[6px] group-data-open/h:-rotate-45"></span>
           </span>
         </button>
+        </div>
       </div>
     </header>
   );

@@ -10,7 +10,7 @@ export const ABSTRACT_PATH = "/abstract-submission/";
 
 const pageTitle = "font-display text-[clamp(1.9rem,4vw,3rem)] font-extrabold leading-[1.05] tracking-[-0.03em] text-sand";
 const lead = "mt-5 max-w-[42rem] text-[16px] leading-[1.75] text-sand/80";
-const card = "mt-12 bg-linen p-6 text-ink shadow-[0_50px_100px_-40px_rgba(0,0,0,0.8)] md:p-12";
+const card = "mt-12 bg-linen p-6 text-ink shadow-[0_50px_100px_-40px_color-mix(in_oklab,var(--color-shade)_80%,transparent)] md:p-12";
 const fieldset = "m-0 mb-10 min-w-0 p-0";
 const legend = "mb-6 font-display text-[1.25rem] font-extrabold tracking-[-0.02em] text-ink";
 const grid = "grid gap-x-6 gap-y-5 md:grid-cols-2";

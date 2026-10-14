@@ -74,7 +74,7 @@ export function ArchImage({ slug, alt = "", ratio = "3/4.4", outline, eager, siz
   return (
     <figure class={`relative ${cls}`}>
       {outline && <span class="arch-outline" aria-hidden="true"></span>}
-      <div class="overflow-hidden rounded-t-full bg-umber shadow-[0_40px_80px_-30px_rgba(0,0,0,0.8)]" style={`aspect-ratio:${ratio}`}>
+      <div class="overflow-hidden rounded-t-full bg-umber shadow-[0_40px_80px_-30px_color-mix(in_oklab,var(--color-shade)_80%,transparent)]" style={`aspect-ratio:${ratio}`}>
         <img
           class="h-full w-full object-cover object-top"
           src={src}
@@ -97,8 +97,8 @@ export function Backdrop({ slug, opacity = "opacity-30", position = "object-cent
   const { src, srcset } = brochureImg(slug);
   return (
     <div class={`pointer-events-none absolute inset-0 -z-10 overflow-hidden ${cls}`} aria-hidden="true">
-      <img class={`h-full w-full object-cover ${position} ${opacity}`} src={src} srcset={srcset} sizes="100vw" alt="" loading="lazy" decoding="async" />
-      <div class="absolute inset-0 bg-[linear-gradient(180deg,var(--color-night)_0%,rgba(12,10,8,0.45)_30%,rgba(12,10,8,0.45)_70%,var(--color-night)_100%)]"></div>
+      <img class={`h-full w-full object-cover ${position} ${opacity} light:opacity-20`} src={src} srcset={srcset} sizes="100vw" alt="" loading="lazy" decoding="async" />
+      <div class="absolute inset-0 bg-[linear-gradient(180deg,var(--color-night)_0%,color-mix(in_oklab,var(--color-night)_45%,transparent)_30%,color-mix(in_oklab,var(--color-night)_45%,transparent)_70%,var(--color-night)_100%)]"></div>
     </div>
   );
 }

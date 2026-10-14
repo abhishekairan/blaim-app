@@ -1,27 +1,17 @@
-// Hero: the brochure cover. Dark stone, a beam of light, the title set in the display serif and
+// Hero: the brochure cover. Dark stone, a beam of light, the title in the logo's heavy sans and
 // the conference theme line with its red Z, next to a render framed as an arch.
 import { conference } from "../data/conference";
-import { ArchImage, Button, Dot, brochureImg, container } from "../components/ui";
-
-const bg = brochureImg("columns-deep-shadow");
+import { ArchImage, Button, Dot, container } from "../components/ui";
 
 export function Hero() {
   return (
     <section id="top" class="relative isolate overflow-hidden bg-night" aria-labelledby="hero-title">
       <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-        <img
-          class="h-full w-full object-cover object-[60%_center] opacity-60"
-          src={bg.src}
-          srcset={bg.srcset}
-          sizes="100vw"
-          width="941"
-          height="1672"
-          alt=""
-          fetchpriority="high"
-          decoding="async"
-        />
-        <div class="absolute inset-0 bg-[linear-gradient(90deg,var(--color-night)_0%,rgba(12,10,8,0.72)_40%,rgba(12,10,8,0.2)_100%)]"></div>
-        <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(12,10,8,0.6)_0%,rgba(12,10,8,0.1)_35%,var(--color-night)_100%)]"></div>
+        {/* --hero-image is set per theme in app.css (dark columns on Rotunda, the cream dome on Daylight),
+            so only the active theme's render is downloaded. Layout preloads the default one. */}
+        <div class="absolute inset-0 bg-[image:var(--hero-image)] bg-cover bg-[position:60%_center] opacity-60 light:opacity-100"></div>
+        <div class="absolute inset-0 bg-[linear-gradient(90deg,var(--color-night)_0%,color-mix(in_oklab,var(--color-night)_72%,transparent)_40%,color-mix(in_oklab,var(--color-night)_20%,transparent)_100%)]"></div>
+        <div class="absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_oklab,var(--color-night)_60%,transparent)_0%,color-mix(in_oklab,var(--color-night)_10%,transparent)_35%,var(--color-night)_100%)]"></div>
         <div class="absolute -top-1/4 left-[62%] h-[150%] w-[22%] -translate-x-1/2 rotate-[16deg] bg-[linear-gradient(180deg,rgba(241,207,154,0.26),rgba(241,207,154,0)_65%)] blur-3xl animate-beam motion-reduce:animate-none"></div>
       </div>
 

@@ -1,6 +1,7 @@
 import type { Child } from "hono/jsx";
 import { GTM_ID, SITE_URL, abs, jsonLd, page } from "../site";
 import { clientAssets } from "../assets";
+import { DEFAULT_THEME, themeBootstrap } from "../theme";
 
 const gtmEnabled = /^GTM-[A-Z0-9]+$/.test(GTM_ID);
 
@@ -27,7 +28,7 @@ export function Layout({ children, path = "/", title, description, noindex }: La
   const ogTitle = title ?? page.ogTitle;
   const ogDescription = description ?? page.ogDescription;
   return (
-    <html lang={page.lang}>
+    <html lang={page.lang} data-theme={DEFAULT_THEME}>
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -39,7 +40,9 @@ export function Layout({ children, path = "/", title, description, noindex }: La
           content={noindex ? "noindex, follow" : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"}
         />
         <meta name="theme-color" content={page.themeColor} />
-        <meta name="color-scheme" content="dark" />
+        <meta name="color-scheme" content="dark light" />
+        {/* Before any styled content: applies the visitor's saved theme without a flash of the default. */}
+        <script dangerouslySetInnerHTML={{ __html: themeBootstrap }} />
 
         <meta property="og:type" content="website" />
         <meta property="og:url" content={SITE_URL + path} />

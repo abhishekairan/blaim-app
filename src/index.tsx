@@ -10,6 +10,11 @@ import { Main } from "./components/Main";
 import { Footer } from "./components/Footer";
 import { SITE_URL } from "./site";
 import { ABSTRACT_PATH, AbstractSubmissionPage, AbstractSubmittedPage } from "./pages/AbstractSubmission";
+import { ABOUT_COMPONENTS } from "./pages/About";
+import { COMMITTEES_PATH, CommitteesPage } from "./pages/Committees";
+import { SCHEDULE_PATH, SchedulePage } from "./pages/Schedule";
+import { PRE_CONFERENCE_PATH, PreConferencePage } from "./pages/PreConference";
+import { ABOUT_ORDER, ABOUT_PAGES } from "./data/about";
 import { emptyForm, notifySubmission, readForm, saveSubmission, validate, type AbstractForm, type FieldErrors } from "./lib/abstracts";
 
 const app = new Hono();
@@ -49,6 +54,67 @@ app.get("/", (c) => {
   );
 });
 
+// --- About pages -----------------------------------------------------------------------
+
+for (const key of ABOUT_ORDER) {
+  const { path, title, description } = ABOUT_PAGES[key];
+  const Page = ABOUT_COMPONENTS[key];
+  app.get(path, (c) => {
+    c.header("Cache-Control", "public, max-age=300, stale-while-revalidate=86400");
+    return c.html(
+      "<!doctype html>" +
+        (
+          <Layout path={path} title={title} description={description}>
+            <Header />
+            <Page />
+            <Footer />
+          </Layout>
+        ),
+    );
+  });
+  app.get(path.slice(0, -1), (c) => c.redirect(path, 301));
+}
+
+// --- Other inner pages -----------------------------------------------------------------
+
+const innerPages = [
+  {
+    path: COMMITTEES_PATH,
+    title: "Committees",
+    description: "Steering, advisory, technical and organising committees and conference chairs of BLAIM 2.0, Parul University, Vadodara.",
+    Page: CommitteesPage,
+  },
+  {
+    path: SCHEDULE_PATH,
+    title: "Schedule",
+    description: "BLAIM 2.0 schedule: pre-workshop and hackathon 27–28 January 2027, conference 29–30 January 2027, Parul University, Vadodara.",
+    Page: SchedulePage,
+  },
+  {
+    path: PRE_CONFERENCE_PATH,
+    title: "Pre-Workshop & Hackathon",
+    description: "BLAIM 2.0 pre-conference workshop and hackathon, 27–28 January 2027: fees, inclusions and places (60, first come, first served).",
+    Page: PreConferencePage,
+  },
+];
+
+for (const { path, title, description, Page } of innerPages) {
+  app.get(path, (c) => {
+    c.header("Cache-Control", "public, max-age=300, stale-while-revalidate=86400");
+    return c.html(
+      "<!doctype html>" +
+        (
+          <Layout path={path} title={title} description={description}>
+            <Header />
+            <Page />
+            <Footer />
+          </Layout>
+        ),
+    );
+  });
+  app.get(path.slice(0, -1), (c) => c.redirect(path, 301));
+}
+
 // --- Abstract submission ---------------------------------------------------------------
 
 const abstractPage = (c: Context, values: AbstractForm, errors?: FieldErrors, formError?: string) =>
@@ -58,7 +124,7 @@ const abstractPage = (c: Context, values: AbstractForm, errors?: FieldErrors, fo
         <Layout
           path={ABSTRACT_PATH}
           title="Abstract Submission"
-          description="Submit an abstract to BLAIM 2.0, Parul University, Vadodara, 28-30 January 2027. Deadline 1 November 2026."
+          description="Submit an abstract to BLAIM 2.0, Parul University, Vadodara, 27-30 January 2027. Deadline 1 November 2026."
           noindex={!!(errors || formError)}
         >
           <Header />
@@ -171,6 +237,8 @@ app.get("/sitemap.xml", (c) => {
       `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">` +
       `<url><loc>${SITE_URL}/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>` +
       `<url><loc>${SITE_URL}${ABSTRACT_PATH}</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>` +
+      ABOUT_ORDER.map((key) => `<url><loc>${SITE_URL}${ABOUT_PAGES[key].path}</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>`).join("") +
+      innerPages.map((p) => `<url><loc>${SITE_URL}${p.path}</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>`).join("") +
       `</urlset>\n`,
   );
 });

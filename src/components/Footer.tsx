@@ -54,7 +54,7 @@ export function Footer() {
         </div>
 
         <div>
-          <p class={label}>On this page</p>
+          <p class={label}>Explore</p>
           <ul class="space-y-2 text-[14px]">
             {menu.map((item) => (
               <li>
@@ -63,6 +63,17 @@ export function Footer() {
                 </a>
               </li>
             ))}
+            {/* No longer in the header, but still the most-needed homepage sections. */}
+            <li>
+              <a class={link} href="/#abstracts">
+                Abstracts
+              </a>
+            </li>
+            <li>
+              <a class={link} href="/#registration">
+                Registration
+              </a>
+            </li>
             <li>
               <a class={`${link} text-glow`} href="/abstract-submission/">
                 Submit an abstract

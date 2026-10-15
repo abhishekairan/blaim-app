@@ -45,6 +45,20 @@ export function Abstracts() {
                 <li class="text-[1.05rem] font-semibold leading-snug text-ink">{j}</li>
               ))}
             </ul>
+            {/* Cover of the journal papers will be published in (source: docs/img/journal.jpg). */}
+            <figure class="mt-6 w-[min(100%,200px)]">
+              <img
+                class="h-auto w-full shadow-[0_24px_50px_-20px_color-mix(in_oklab,var(--color-shade)_70%,transparent)] ring-1 ring-ink/10"
+                src="/assets/journal/revija-360.webp"
+                srcset="/assets/journal/revija-360.webp 360w, /assets/journal/revija-720.webp 720w"
+                sizes="200px"
+                width="360"
+                height="512"
+                alt="Cover of Revija za kriminalistiko in kriminologijo (Journal of Criminal Investigation and Criminology), 2026, issue 2"
+                loading="lazy"
+                decoding="async"
+              />
+            </figure>
           </div>
         </div>
 

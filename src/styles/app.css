@@ -182,6 +182,12 @@
     opacity: 1;
     translate: 0 0;
   }
+  /* A revealed block is its own stacking context (translate), so raise the one holding a hovered
+     person; otherwise the person's hover card would slide under the next block. */
+  .reveal:has([data-person]:hover) {
+    position: relative;
+    z-index: 30;
+  }
   @media (prefers-reduced-motion: reduce) {
     .js .reveal {
       opacity: 1;

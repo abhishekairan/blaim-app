@@ -15,6 +15,7 @@ export const LANGUAGES = {
   nl: { label: "Nederlands", short: "NL" },
   de: { label: "Deutsch", short: "DE" },
   sl: { label: "Slovenščina", short: "SL" },
+  da: { label: "Dansk", short: "DA" },
 } as const;
 
 export type LanguageCode = keyof typeof LANGUAGES;

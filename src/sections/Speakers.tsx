@@ -1,7 +1,7 @@
 // Guests and speakers (brochure pages 9-12), grouped by theme as in the brochure. The brochure's
 // portraits are not available as separate files, so each person gets a monogram.
 import { guests, speakersByTheme, themes } from "../data/conference";
-import { Backdrop, Eyebrow, Monogram, PersonCard, Title, container } from "../components/ui";
+import { Backdrop, Eyebrow, Flag, Monogram, PersonCard, PersonHoverCard, Title, container, personHost } from "../components/ui";
 
 export function Speakers() {
   return (
@@ -15,11 +15,15 @@ export function Speakers() {
 
         <ul class="mt-12 grid gap-6 md:grid-cols-3">
           {guests.map((g) => (
-            <li class="reveal relative border border-amber/20 bg-char/70 p-7 backdrop-blur-sm">
+            <li class={`reveal ${personHost} border border-amber/20 bg-char/70 p-7 backdrop-blur-sm`} data-person>
+              <PersonHoverCard person={g} context="Guest" />
               <span class="absolute top-0 left-7 h-[3px] w-10 bg-signal" aria-hidden="true"></span>
               <Monogram name={g.name} size="h-16 w-16 text-[1.2rem]" />
               {g.tag && <p class="mt-5 font-sans text-[10.5px] font-bold uppercase tracking-[0.24em] text-amber">{g.tag}</p>}
-              <p class="mt-1 font-display text-[1.2rem] font-extrabold leading-tight tracking-[-0.02em] text-glow">{g.name}</p>
+              <p class="mt-1 font-display text-[1.2rem] font-extrabold leading-tight tracking-[-0.02em] text-glow">
+                <Flag person={g} />
+                {g.name}
+              </p>
               {g.role && <p class="mt-1 text-[13.5px] text-sand/85">{g.role}</p>}
               {g.org && <p class="mt-0.5 text-[13px] text-mist">{g.org}</p>}
             </li>
@@ -40,7 +44,7 @@ export function Speakers() {
               </div>
               <ul class="grid gap-x-6 gap-y-8 sm:grid-cols-2 xl:grid-cols-3">
                 {speakersByTheme[i]!.map((p) => (
-                  <PersonCard person={p} />
+                  <PersonCard person={p} context={`Theme ${i + 1} speaker`} />
                 ))}
               </ul>
             </div>

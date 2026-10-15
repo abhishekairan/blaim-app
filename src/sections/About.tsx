@@ -1,6 +1,7 @@
 // About, Aim and Rationale (brochure pages 5-6), set as an editorial spread next to a render.
 import { about } from "../data/conference";
-import { ArchImage, Eyebrow, Title, container } from "../components/ui";
+import { ABOUT_PAGES } from "../data/about";
+import { ArchImage, Eyebrow, ReadMore, Title, container } from "../components/ui";
 
 export function About() {
   return (
@@ -20,6 +21,9 @@ export function About() {
             {about.conference.map((p, i) => (
               <p class={`reveal ${i === 0 ? "drop-cap" : ""}`}>{p}</p>
             ))}
+            <div class="text-amber">
+              <ReadMore href={ABOUT_PAGES.blaim.path}>More about BLAIM 2.0</ReadMore>
+            </div>
           </div>
 
           <div class="mt-16 grid gap-10 border-t border-amber/15 pt-10 md:grid-cols-2">

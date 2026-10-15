@@ -9,11 +9,11 @@ export function KeyDates() {
         <div class="flex flex-wrap items-end justify-between gap-4">
           <Eyebrow class="mb-0">Key dates</Eyebrow>
           <p id="dates-title" class="text-[14px] font-medium text-sand/70">
-            Deadlines as published in the conference brochure
+            Deadlines, workshop and conference days
           </p>
         </div>
-        <ol class="relative mt-10 grid gap-9 md:grid-cols-4 md:gap-6">
-          <span class="rule-dot rule-dot-h absolute inset-x-0 top-[5px] hidden md:block" aria-hidden="true"></span>
+        <ol class="relative mt-10 grid gap-9 md:grid-cols-3 md:gap-6 xl:grid-cols-6">
+          <span class="rule-dot rule-dot-h absolute inset-x-0 top-[5px] hidden xl:block" aria-hidden="true"></span>
           {keyDates.map((d) => (
             <li class="reveal relative pl-6 md:pl-0 md:pt-9">
               <span class="absolute top-[7px] left-0 h-[11px] w-[11px] rounded-full bg-signal md:top-0" aria-hidden="true"></span>

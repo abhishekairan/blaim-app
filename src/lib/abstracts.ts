@@ -170,7 +170,7 @@ export async function notifySubmission(s: Submission) {
       text:
         `Dear ${s.name},\n\n` +
         `Thank you for submitting an abstract to BLAIM 2.0, the 2nd International Multi-Disciplinary Conference on ` +
-        `Mindfulness, Behavioural Science & Legal Innovation (Parul University, Vadodara, 28-30 January 2027, hybrid mode).\n\n` +
+        `Mindfulness, Behavioural Science & Legal Innovation (Parul University, Vadodara, 27-30 January 2027, hybrid mode).\n\n` +
         `Please quote your reference ${s.id} in any correspondence about this submission. ` +
         `The conference committee will contact you about the review outcome.\n\n` +
         `A copy of your submission follows.\n\n` +

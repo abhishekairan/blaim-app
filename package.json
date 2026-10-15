@@ -8,7 +8,8 @@
     "build": "vite build --mode client && vite build",
     "start": "node --env-file-if-exists=.env dist/index.js",
     "typecheck": "tsc --noEmit",
-    "smtp:check": "node --env-file-if-exists=.env --experimental-strip-types scripts/smtp-check.ts"
+    "smtp:check": "node --env-file-if-exists=.env --experimental-strip-types scripts/smtp-check.ts",
+    "photos": "node --experimental-strip-types scripts/people-photos.ts"
   },
   "dependencies": {
     "@hono/node-server": "^2.1.3",

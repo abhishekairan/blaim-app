@@ -3,8 +3,10 @@ import { initTheme } from "./theme";
 import { initUi } from "./ui";
 import { initCtaTracking } from "./cta-tracking";
 import { initAbstractForm } from "./abstract-form";
+import { initTranslate } from "./translate";
 
 initTheme();
+initTranslate();
 initUi();
 initCtaTracking();
 initAbstractForm();

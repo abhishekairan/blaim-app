@@ -278,3 +278,22 @@
     border-top: 1px solid color-mix(in oklab, var(--color-amber) 16%, transparent);
   }
 }
+
+/* Google Translate widget (src/client/translate.ts): the header switcher replaces its UI, so hide the
+   top banner, hover tooltips and highlight, and undo the offset it pushes onto <body>. */
+.goog-te-banner-frame,
+iframe.skiptranslate,
+.VIpgJd-ZVi9od-ORHb-OEVmcd,
+.VIpgJd-ZVi9od-aZ2wEe-wOHMyf,
+#goog-gt-tt,
+.goog-te-balloon-frame {
+  display: none !important;
+}
+body {
+  top: 0 !important;
+}
+.goog-text-highlight,
+.VIpgJd-yAWNEb-VIpgJd-fmcmS-sn54Q {
+  background: none !important;
+  box-shadow: none !important;
+}

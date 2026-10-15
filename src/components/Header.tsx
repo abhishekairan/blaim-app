@@ -1,6 +1,9 @@
 import { cta, menu } from "../data/menu";
 import { conference } from "../data/conference";
 import { DEFAULT_THEME, THEMES } from "../theme";
+import { LANGUAGES, SOURCE_LANGUAGE, type LanguageCode } from "../languages";
+
+const languageCodes = Object.keys(LANGUAGES) as LanguageCode[];
 
 const themeNames = Object.keys(THEMES) as (keyof typeof THEMES)[];
 const nextThemeLabel = THEMES[themeNames[(themeNames.indexOf(DEFAULT_THEME) + 1) % themeNames.length]!].label;
@@ -20,7 +23,7 @@ export function Header() {
       class="group/h fixed inset-x-0 top-0 z-50 border-b border-transparent transition-[background-color,border-color] duration-500 data-scrolled:border-amber/15 data-scrolled:bg-night/85 data-scrolled:backdrop-blur-md data-open:bg-night"
     >
       <div class="mx-auto flex h-[76px] w-[min(1360px,calc(100%-2.5rem))] items-center justify-between gap-6">
-        <a class="relative z-10 inline-flex items-center" href="/" aria-label={`${conference.shortName} home`}>
+        <a class="relative z-10 inline-flex items-center" href="/" translate="no" aria-label={`${conference.shortName} home`}>
           {/* The logo is the one element that swaps per theme: white wordmark on Rotunda, black on Daylight. */}
           <img
             class="h-9 w-auto light:hidden md:h-10"
@@ -58,7 +61,31 @@ export function Header() {
           </p>
         </nav>
 
-        <div class="relative z-10 flex items-center gap-4">
+        <div class="relative z-10 flex items-center gap-4 max-sm:gap-2.5">
+          {/* Driven by src/client/translate.ts. translate="no" keeps Google from translating the language names. */}
+          <div class="relative" translate="no">
+            <label for="language-select" class="sr-only">
+              Language
+            </label>
+            <select
+              id="language-select"
+              data-language-select
+              class="notranslate h-9 cursor-pointer appearance-none border border-amber/40 bg-transparent pr-7 pl-3 font-sans text-[10.5px] font-bold uppercase tracking-[0.2em] text-sand/85 transition-colors duration-300 hover:border-amber hover:text-glow focus-visible:border-amber focus-visible:outline-none max-sm:max-w-[6.5rem]"
+            >
+              {languageCodes.map((code) => (
+                <option class="bg-night text-sand normal-case tracking-normal" value={code} selected={code === SOURCE_LANGUAGE}>
+                  {LANGUAGES[code].label}
+                </option>
+              ))}
+            </select>
+            <span
+              class="pointer-events-none absolute top-1/2 right-2.5 h-1.5 w-1.5 -translate-y-3/4 rotate-45 border-r border-b border-amber"
+              aria-hidden="true"
+            ></span>
+            {/* Mount point for Google's own (hidden) widget. */}
+            <div id="google_translate_element" class="hidden"></div>
+          </div>
+
           {/* Label and aria-label are kept in sync with the active theme by src/client/theme.ts. */}
           <button
             type="button"
